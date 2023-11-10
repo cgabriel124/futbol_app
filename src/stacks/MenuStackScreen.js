@@ -1,19 +1,26 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import {createNativeStackNavigator} from '@react-navigation/native-stack'
-import MenuScreen from '../screens/MenuScreen'
-import RegistrarJugadorScreen from '../screens/RegistrarJugadorScreen'
-import CrearEquipoScreen from '../screens/CrearEquipoScreen'
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const MenuStackScreen = () => {
-    const MenuStack = createNativeStackNavigator()
+import { headerStyles } from '../Styles';
+import MenuScreen from '../screens/MenuScreen';
+import RegistrarJugadorScreen from '../screens/RegistrarJugadorScreen';
+import CrearEquipoScreen from '../screens/CrearEquipoScreen';
+
+
+
+const MenuStack = () => {
+    const Stack = createNativeStackNavigator();
+
     return (
-        <MenuStack.Navigator screenOptions={{ headerTitleAlign: 'center'}}>
-            <MenuStack.Screen name="MenuBotones" component={MenuScreen} />
-            <MenuStack.Screen name="RegistrarJugador" component={RegistrarJugadorScreen} />
-            <MenuStack.Screen name="CrearEquipo" component={CrearEquipoScreen} />
-        </MenuStack.Navigator>
-    )
+        <Stack.Navigator
+            screenOptions={headerStyles}
+        >
+            <Stack.Screen name="Menu Botones" component={MenuScreen} />
+            <Stack.Screen name="Registrar Jugador" component={RegistrarJugadorScreen} />
+            <Stack.Screen name="Crear Equipo" component={CrearEquipoScreen} />
+        </Stack.Navigator>
+    );
 }
 
-export default MenuStackScreen
+export default MenuStack;

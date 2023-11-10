@@ -1,4 +1,4 @@
-import { View, Text, Button} from 'react-native'
+import { View, Text, Pressable} from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 
@@ -7,7 +7,7 @@ const PartidosScreen = () => {
   return (
     <View>
       <Text>PartidosScreen</Text>
-      <Button title='Crear Equipo' onPress={() => navigation.navigate('CrearEquipo')} />
+      <Pressable title='Crear Equipo' onPress={() => navigation.navigate('Crear Equipo')} />
     </View>
   )
 }

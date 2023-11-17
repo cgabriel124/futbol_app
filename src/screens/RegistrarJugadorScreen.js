@@ -1,68 +1,57 @@
 import { SafeAreaView, View, Text, TextInput, Pressable } from 'react-native'
 import React, { useState } from 'react'
+import { create_player} from '../api/ApiMethods'
 import { buttonStyles } from '../Styles'
+import Buttom from '../Components/Buttom'
+import Input from '../Components/Input'
 
 const RegistrarJugadorScreen = () => {
-  const [year, setYear] = useState("");
-  const [error, setError] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
+  const [anio, setAnio] = useState("");
+  const [nacionalidad, setNacionalidad] = useState("");
+  const [posicion, setPosicion] = useState("");
 
-  const handleYearChange = (value) => {
-    setYear(value);
-  };
-
-  const handleSubmit = () => {
-    // Validar el año de nacimiento aquí
-    const currentYear = new Date().getFullYear();
-    const minYear = 1961;
-
-    if (year > currentYear || year < minYear) {
-      setError("Ingrese un año de nacimiento válido para el jugador");
-      return;
-    }
-
-    // Realizar el registro del jugador
-  };
-
-  const dismissError = () => {
-    setError("");
-  };
+  const handleRegister = () => {
+    create_player({
+      nombre: nombre,
+      apellido: apellido,
+      ano_nacimiento: anio,
+      posicion: posicion,
+      nacionalidad: nacionalidad
+    })
+  }
 
   return (
     <SafeAreaView style={buttonStyles.container}>
       <View style={buttonStyles.body}>
-        {error !== "" && (
-          <View style={buttonStyles.errorContainer}>
-            <Text style={buttonStyles.errorText}>{error}</Text>
-            <Pressable onPress={dismissError}>
-              <Text style={buttonStyles.dismissText}>X</Text>
-            </Pressable>
-          </View>
-        )}
-        <View style={buttonStyles.contentInput}>
-          <TextInput placeholder="Nombre del jugador" />
-        </View>
-        <View style={buttonStyles.contentInput}>
-          <TextInput placeholder="Apellido del jugador" />
-        </View>
-        <View style={buttonStyles.contentInput}>
-          <TextInput
-            placeholder="Año de nacimiento del jugador"
-            keyboardType="decimal-pad"
-            onChangeText={handleYearChange}
-            value={year}
-          />
-        </View>
-        <View style={buttonStyles.contentInput}>
-          <TextInput placeholder="Nacionalidad del jugador" />
-        </View>
-        <View style={buttonStyles.contentInput}>
-          <TextInput placeholder="Posición del jugador" />
-        </View>
-        <View>
-          <Pressable style={buttonStyles.button} onPress={handleSubmit}>
-            <Text style={buttonStyles.textButton}>Registrar</Text>
-          </Pressable>
-        </View>
+        <Input
+          placeholder="Nombre del jugador"
+          value={nombre}
+          setValue={setNombre}
+        />
+        <Input
+          placeholder="Apellido del jugador"
+          value={apellido}
+          setValue={setApellido}
+        />
+        <Input
+          placeholder="Año de nacimiento del jugador"
+          keyboardType="decimal-pad"
+          value={anio}
+          setValue={setAnio}
+        />
+        <Input
+          placeholder="Nacionalidad del jugador"
+          value={nacionalidad}
+          setValue={setNacionalidad}
+        />
+        <Input
+          placeholder="Posición del jugador"
+          value={posicion}
+          setValue={setPosicion}
+        />
+        <Buttom text="Registrar" onPress={handleRegister} />
       </View>
     </SafeAreaView>
   );

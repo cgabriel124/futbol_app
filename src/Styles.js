@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 //Estilo para los encabezados de todas las ventanas
 export const headerStyles = {
     headerStyle: {
@@ -26,6 +26,7 @@ export const buttonStyles = StyleSheet.create({
         justifyContent: 'center',
     },
     body: {
+        
         justifyContent: 'center',
         alignItems: 'center',
 
@@ -39,7 +40,12 @@ export const buttonStyles = StyleSheet.create({
         borderRadius: 100,
         paddingLeft: 15,
         paddingRight: 15,
-        marginBottom: "15%",
+        marginBottom: Platform.select({
+            ios: '15%',
+            android: '15%',
+            web: "1%"
+        }),
+        //sombras
         backgroundColor: "#e0e0e0",
         shadowColor: "#000",
         shadowOffset: {

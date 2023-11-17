@@ -10,4 +10,5 @@ const Buttom = ({onPress, text}) => {
   )
 }
 
+
 export default Buttom

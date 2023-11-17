@@ -17,4 +17,5 @@ const Input = ({ value, setValue, placeholder, secureTextEntry, keyboardType}) =
     )
 }
 
+
 export default Input

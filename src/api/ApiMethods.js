@@ -29,3 +29,14 @@ export const create_player = async data =>{
         return error.response.data;
     }
 }
+
+export const distribute_teams = async () =>{
+    try {
+        const response = await ApiManager("/teamdistribution/", {
+            method: "GET",
+        })
+        return response;
+    } catch (error) {
+        return error;
+    }
+}

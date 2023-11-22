@@ -40,3 +40,14 @@ export const distribute_teams = async () =>{
         return error;
     }
 }
+
+export const get_team_players = async () =>{
+    try {
+        const response = await ApiManager("/teamplayerlist/", {
+            method: "GET",
+        })
+        return response;
+    } catch (error) {
+        return error;
+    }
+}

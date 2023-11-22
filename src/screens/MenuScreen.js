@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { buttonStyles } from '../Styles'
 import Buttom from '../Components/Buttom'
-import { distribute_teams } from '../api/ApiMethods'
+import { distribute_teams, get_team_players } from '../api/ApiMethods'
 
 const MenuScreen = () => {
   const navigation = useNavigation(); // este es el hook
@@ -27,6 +27,7 @@ const MenuScreen = () => {
         />
         <Buttom
           text="Definir Partidos"
+
           />
         <Buttom
           text="Crear Equipo"

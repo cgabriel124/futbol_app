@@ -90,3 +90,43 @@ export const buttonStyles = StyleSheet.create({
 
 
 })
+
+export const tableStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 16,
+      },
+      tableHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 8,
+        backgroundColor: 'green',
+        padding: 8,
+        borderWidth: 1,
+        borderColor: 'black',
+      },
+      headerText: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        color: 'white',
+      },
+      tableRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center', // Alinea verticalmente los elementos en la fila
+        marginBottom: 8,
+        borderWidth: 1,
+        borderColor: 'black',
+      },
+      playerColumn: {
+        flex: 1,
+        padding: 8,
+      },
+      teamColumn: {
+        marginLeft: 16,
+        padding: 8,
+        borderWidth: 1,
+        borderColor: 'black',
+        borderRadius: 5,
+      },
+})

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Table, Row } from 'react-native-table-component';
+
 import { get_team_players } from '../api/ApiMethods';  // Ajusta la importación según la ubicación de tu función API
+
 
 const JugadoresScreen = () => {
   const [tableData, setTableData] = useState([]);

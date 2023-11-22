@@ -51,3 +51,42 @@ export const get_team_players = async () =>{
         return error;
     }
 }
+
+export const get_matches = async () =>{
+    
+    try {
+        const response = await ApiManager("/getmatches/", {
+            method: "GET",
+        })
+        return response;
+    } catch (error) {
+        return error;
+    }
+}
+
+export const set_result = async data =>{
+    try {
+        const response = await ApiManager("/registerresult/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data:data
+        })
+        
+        return response;
+    } catch (error) {
+        return error.response.data;
+    }   
+}
+
+export const get_team_stats = async () =>{
+    try {
+        const response = await ApiManager("/getteamstats/", {
+            method: "GET",
+        })
+        return response;
+    } catch (error) {
+        return error;
+    }
+}

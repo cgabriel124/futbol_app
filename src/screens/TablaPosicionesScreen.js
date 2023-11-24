@@ -1,24 +1,30 @@
-import { View, Text, StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { Table, Row } from 'react-native-table-component';
+import { View } from 'react-native';
+import { Table, Row, Rows } from 'react-native-table-component';
 import { get_team_stats } from '../api/ApiMethods';
-
+import { tableStyles } from '../Styles';
+import { useFocusEffect } from '@react-navigation/native';
 
 const TablaPosicionesScreen = () => {
   const [teamStats, setTeamStats] = useState([]);
 
-  useEffect(() => {
-    const fetchTeamStats = async () => {
-      try {
-        const response = await get_team_stats();
-        setTeamStats(response.data.equipos_info);
-      } catch (error) {
-        console.error('Error fetching team stats:', error);
-      }
-    };
 
-    fetchTeamStats();
-  }, []);
+
+  // Utiliza useFocusEffect para cargar los datos cada vez que la pantalla se enfoca
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchData = async () => {
+        try {
+          const response = await get_team_stats();
+          setTeamStats(response.data.equipos_info);
+        } catch (error) {
+          console.error('Error fetching team stats:', error);
+        }
+      }
+
+      fetchData();
+    }, [])
+  );
 
   const sortTeams = () => {
     return teamStats.sort((a, b) => {
@@ -35,43 +41,27 @@ const TablaPosicionesScreen = () => {
   const renderTable = () => {
     const sortedTeams = sortTeams();
 
-    return sortedTeams.map((team, index) => (
-      <Row
-        key={index}
-        data={[
-          index + 1, // Posición
-          team.nombre_equipo,
-          team.ganados,
-          team.empatados,
-          team.perdidos,
-        ]}
-        style={styles.row}
-        textStyle={styles.text}
-      />
-    ));
+    return sortedTeams.map((team, index) => [
+      index + 1, // Posición
+      team.nombre_equipo,
+      team.ganados,
+      team.empatados,
+      team.perdidos,
+    ]);
   };
 
   return (
-    <View style={styles.container}>
-      <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+    <View style={tableStyles.container}>
+      <Table>
         <Row
-          data={['Posición', 'Equipo', 'Ganados', 'Empatados', 'Perdidos']}
-          style={styles.head}
-          textStyle={styles.headText}
+          data={['Pos.', 'Equipo', 'Ganados', 'Empatados', 'Perdidos']}
+          style={tableStyles.tableHeader}
+          textStyle={tableStyles.headerText}
         />
-        {renderTable()}
+        <Rows data={renderTable()} style={tableStyles.RowStyle} textStyle={tableStyles.text} />
       </Table>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
-  head: { height: 40, backgroundColor: '#f1f8ff' },
-  headText: { margin: 6 },
-  row: { height: 40, backgroundColor: '#f9f9f9' },
-  text: { margin: 6 },
-});
-
-
-export default TablaPosicionesScreen
+export default TablaPosicionesScreen;

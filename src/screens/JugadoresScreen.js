@@ -1,52 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Table, Row } from 'react-native-table-component';
-
-import { get_team_players } from '../api/ApiMethods';  // Ajusta la importación según la ubicación de tu función API
-
+import React, { useState } from 'react';
+import { View, Text, ScrollView } from 'react-native';
+import { Table, Row, Rows } from 'react-native-table-component';
+import { tableStyles } from '../Styles';
+import { get_team_players } from '../api/ApiMethods';
+import { useFocusEffect } from '@react-navigation/native';
 
 const JugadoresScreen = () => {
   const [tableData, setTableData] = useState([]);
 
-  useEffect(() => {
-    // Llamar a la API y actualizar los datos de la tabla
-    const fetchData = async () => {
-      try {
-        const response = await get_team_players();
-        setTableData(response.data);  // Ajusta esto según la estructura de tu respuesta
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+  // Utiliza useFocusEffect para cargar los datos cada vez que la pantalla se enfoca
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchData = async () => {
+        try {
+          const response = await get_team_players();
+          if (response.data) {
+            setTableData(response.data.team_data);
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
 
-    fetchData();
-  }, []);
-
-  const renderTable = () => {
-    return tableData.map((equipo, index) => (
-      <Row
-        key={index}
-        data={[
-          `${equipo.jugadores[0].nombre} (${equipo.jugadores[0].posicion})`,
-          equipo.nombre_equipo,
-        ]}
-        textStyle={styles.text}
-      />
-    ));
-  };
+      fetchData();
+    }, [])
+  );
 
   return (
-    <View style={styles.container}>
-      <Table borderStyle={{ borderWidth: 1, borderColor: '#C1C0B9' }}>
-        {renderTable()}
-      </Table>
-    </View>
+    <ScrollView style={tableStyles.container}>
+      {tableData.map((team, index) => (
+        <View key={index} style={tableStyles.teamContainer}>
+          <Text style={tableStyles.teamName}>{team.nombre_equipo}</Text>
+          <Table>
+            <Row
+              data={['Jugador', 'Posición - Nacionalidad']}
+              style={tableStyles.tableHeader}
+              textStyle={tableStyles.headerText}
+            />
+            <Rows
+              data={team.jugadores.map((jugador) => [
+                `${jugador.nombre} ${jugador.apellido}`,
+                `${jugador.posicion} - ${jugador.nacionalidad}`,
+              ])}
+              style={tableStyles.RowStyle}
+              textStyle={tableStyles.text}
+            />
+          </Table>
+        </View>
+      ))}
+    </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
-  text: { margin: 6 },
-});
 
 export default JugadoresScreen;

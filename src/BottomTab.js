@@ -29,12 +29,13 @@ const BottomTab = () => {
             fontWeight: "bold"
         },
         ...headerStyles,
+        ...tabBarOptions
     });
 
     return (
         <NavigationContainer>
             <Tab.Navigator
-                tabBarOptions={tabBarOptions}
+                //tabBarOptions={tabBarOptions}
                 screenOptions={screenOptions}
             >
                 <Tab.Screen name="Menu" component={MenuStackScreen} options={{ headerShown: false }} />

@@ -14,37 +14,42 @@ export const headerStyles = {
 
 //Estilo para la barra inferior de navegacion
 export const tabBarOptions = {
-    activeTintColor: "#028037",
-    inactiveTintColor: "gray",
-
-};
+    "tabBarActiveTintColor": "#028037",
+    "tabBarInactiveTintColor": "gray",
+    "tabBarStyle": [
+      {
+        "display": "flex"
+      },
+      null
+    ]
+  }
 //Estilo para los botones de las ventanas
 export const buttonStyles = StyleSheet.create({
     container: {
-        flex: 1,
-        marginTop: 16,
-        justifyContent: 'center',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      //marginVertical: 20, // Ajusta según sea necesario
+     // paddingHorizontal: 16, // Ajusta según sea necesario
+
     },
     body: {
-        
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-
+        marginTop: Platform.OS === 'web' ? '0%' : '10%',
     },
     contentInput: {
         justifyContent: 'center',
-        width: '80%',
-        height: 40,
+        width: 300,
+        height: 50,
         borderColor: 'black',
         borderWidth: 1,
         borderRadius: 100,
         paddingLeft: 15,
         paddingRight: 15,
-        marginBottom: Platform.select({
-            ios: '15%',
-            android: '15%',
-            web: "1%"
-        }),
+        marginTop: "10%",
+
         //sombras
         backgroundColor: "#e0e0e0",
         shadowColor: "#000",
@@ -67,7 +72,7 @@ export const buttonStyles = StyleSheet.create({
         marginHorizontal: 16,
         //borderWidth: 1,
         borderRadius: 100,
-        marginBottom: "20%",
+        marginTop: Platform.OS === 'web' ? '7%' : '20%',
         //sombras
         shadowColor: "#028037",
         shadowOffset: {
@@ -95,8 +100,10 @@ export const tableStyles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
+        paddingTop: 30,
       },
       tableHeader: {
+        height: 40,
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 8,
@@ -104,13 +111,15 @@ export const tableStyles = StyleSheet.create({
         padding: 8,
         borderWidth: 1,
         borderColor: 'black',
+        borderColor: 'black',
       },
       headerText: {
         fontWeight: 'bold',
         fontSize: 16,
         color: 'white',
+        
       },
-      tableRow: {
+      RowStyle: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center', // Alinea verticalmente los elementos en la fila
@@ -121,6 +130,7 @@ export const tableStyles = StyleSheet.create({
       playerColumn: {
         flex: 1,
         padding: 8,
+
       },
       teamColumn: {
         marginLeft: 16,
@@ -129,4 +139,16 @@ export const tableStyles = StyleSheet.create({
         borderColor: 'black',
         borderRadius: 5,
       },
+      text: {
+        margin: 6,
+      },
+      teamName: { 
+        fontSize: 18, 
+        fontWeight: 'bold', 
+        marginBottom: 10,
+        textAlign: 'center',
+      },
+      teamContainer: { 
+        marginBottom: 20 },
+
 })

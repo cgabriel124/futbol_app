@@ -4,34 +4,40 @@ import Buttom from '../Components/Buttom';
 import Input from '../Components/Input';
 import { set_result } from '../api/ApiMethods';
 import { get_matches } from '../api/ApiMethods';
+import { useFocusEffect } from '@react-navigation/native';
+import { tableStyles } from '../Styles';
 
 const Partidoscreen = () => {
   const [matches, setMatches] = useState([]);
   const [golesLocal, setGolesLocal] = useState("");
   const [golesVisitante, setGolesVisitante] = useState("");
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const matchesData = await get_matches();
-        setMatches(matchesData.data.partidos_info);
-      } catch (error) {
-        console.error('Error fetching matches:', error);
-      }
-    };
 
-    fetchData();
-  }, []);
+  // Utiliza useFocusEffect para cargar los datos cada vez que la pantalla se enfoca
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchData = async () => {
+        try {
+          const matchesData = await get_matches();
+          setMatches(matchesData.data.partidos_info);
+        } catch (error) {
+          console.error('Error fetching matches:', error);
+        }
+      };
 
-  const handleIngresarPress = async (idPartido, golesLocal, golesVisitante, idEquipoLocal, idEquipoVisitante) => {
+      fetchData();
+    }, [])
+  );
+
+  const handleIngresar= async (idPartido, golesLocal, golesVisitante, idEquipoLocal, idEquipoVisitante) => {
     try {
       // Llama a tu función set_result para enviar los datos a la API
       console.log('Id partido:', idPartido, 'Goles Local:', golesLocal, 'Goles Visitante:', golesVisitante, 'Id Equipo Local:', idEquipoLocal, 'Id Equipo Visitante:', idEquipoVisitante);
       const response = await set_result({
-        id_partido: idPartido,//correcto
+        id_partido: idPartido,
         id_equipo_local: idEquipoLocal,
         id_equipo_visitante: idEquipoVisitante,
-        goles_local: parseInt(golesLocal),//golesLocal,
-        goles_visitante: parseInt(golesVisitante),//golesVisitante
+        goles_local: parseInt(golesLocal),
+        goles_visitante: parseInt(golesVisitante),
       });
       console.log('Resultado:', response);
       // Verifica la respuesta de la API
@@ -51,25 +57,34 @@ const Partidoscreen = () => {
       {matches.map((match) => (
         <View key={match.id_partido} style={styles.matchContainer}>
           <View style={styles.teamContainer}>
-            <Text>{match.nombre_equipo_local}</Text>
+            <Text style={tableStyles.teamName} >{match.nombre_equipo_local}</Text>
             <Input
               placeholder="Resultado"
               keyboardType="numeric"
               setValue={setGolesLocal}
+              customStyles={{
+                width: 100,
+              }}
             />
           </View>
           <View style={styles.teamContainer}>
             <Buttom
               text="Ingresar"
-              onPress={() => handleIngresarPress(match.id_partido, golesLocal, golesVisitante, match.id_equipo_local, match.id_equipo_visitante)}
+              onPress={() => handleIngresar(match.id_partido, golesLocal, golesVisitante, match.id_equipo_local, match.id_equipo_visitante)}
+              customStyles={{
+                width: 100, 
+              }}
             />
           </View>
           <View style={styles.teamContainer}>
-            <Text>{match.nombre_equipo_visitante}</Text>
+            <Text style={tableStyles.teamName} >{match.nombre_equipo_visitante}</Text>
             <Input
               placeholder="Resultado"
               keyboardType="numeric"
               setValue={setGolesVisitante}
+              customStyles={{
+                width: 100,
+              }}
             />
           </View>
         </View>

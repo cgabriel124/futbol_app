@@ -52,6 +52,17 @@ export const get_team_players = async () =>{
     }
 }
 
+export const generate_matches = async () =>{
+    try {
+        const response = await ApiManager("/generatematches/", {
+            method: "GET",
+        })
+        return response;
+    } catch (error) {
+        return error;
+    }
+}
+
 export const get_matches = async () =>{
     
     try {

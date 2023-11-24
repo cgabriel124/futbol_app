@@ -2,9 +2,9 @@ import { View, TextInput } from 'react-native'
 import React from 'react'
 import { buttonStyles } from '../Styles'
 
-const Input = ({ value, setValue, placeholder, secureTextEntry, keyboardType}) => {
+const Input = ({ value, setValue, placeholder, secureTextEntry, keyboardType, customStyles}) => {
     return (
-        <View style={buttonStyles.contentInput}>
+        <View style={[buttonStyles.contentInput, customStyles]} >
             <TextInput
                 value={value}
                 onChangeText={setValue}
@@ -12,6 +12,7 @@ const Input = ({ value, setValue, placeholder, secureTextEntry, keyboardType}) =
                 //style={buttonStyles.contentInput}
                 secureTextEntry={secureTextEntry}
                 keyboardType={keyboardType}
+
             />
         </View>
     )

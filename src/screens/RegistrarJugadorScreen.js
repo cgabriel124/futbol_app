@@ -1,4 +1,4 @@
-import { SafeAreaView, View, Text, TextInput, Pressable } from 'react-native'
+import { SafeAreaView, View} from 'react-native'
 import React, { useState } from 'react'
 import { create_player} from '../api/ApiMethods'
 import { buttonStyles } from '../Styles'
@@ -19,6 +19,15 @@ const RegistrarJugadorScreen = () => {
       ano_nacimiento: anio,
       posicion: posicion,
       nacionalidad: nacionalidad
+    }).then((response) => {
+      if (response.status == 200) {
+        // TODO:         
+        // mostrar alerta de que se registro correctamente         
+        console.log("Se registro un nuevo Jugador");
+      }
+    }).catch((error) => {
+      console.error(error);
+      console.log(response.data)
     })
   }
 

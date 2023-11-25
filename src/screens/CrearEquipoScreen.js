@@ -18,7 +18,7 @@ const CrearEquipoScreen = () => {
       //logo: logo,   
       //logo: logo ? logo.uri : null,
       descripcion: descripcion,
-      numero_jugadores: null
+      numero_jugadores: 0
     }).then((response) => {
       if (response.status == 200) {
         // TODO:         
@@ -27,7 +27,7 @@ const CrearEquipoScreen = () => {
       }
     }).catch((error) => {
       console.error(error);
-      console.log(response.data)
+    console.log(error.response.data);
     })
 
   };

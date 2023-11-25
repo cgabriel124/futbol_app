@@ -152,3 +152,35 @@ export const tableStyles = StyleSheet.create({
         marginBottom: 20 },
 
 })
+
+export const pickerStyles = StyleSheet.create({
+  pickerStyle: {
+    height: 50,
+    width: 300,
+    backgroundColor: '#f0f0f0',  // Color de fondo del Picker
+    borderRadius: 100,  // Borde redondeado
+    marginBottom: 10,  // Margen inferior
+    paddingLeft: 15,
+    marginTop: 30,
+    //sombras
+    shadowColor: "black",
+    shadowOffset: {
+        width: 0,
+        height: 4,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 4.65,
+    
+    elevation: 8,
+
+    //end sombras
+
+  },
+  pickerItemStyle: {
+    color: 'red',  // Color del texto de los elementos
+    backgroundColor: '#fff',  // Color de fondo de los elementos
+  },
+})
+export const imagePickerStyles = StyleSheet.create({
+  
+})
